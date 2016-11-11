@@ -12,6 +12,50 @@ class trieCustom
 {
 	trieCustom* children[ALPHABET_SIZE];
 	bool isLeaf;
+	bool deleteWordRecurse(int i, string inputString, trieCustom* currentNode)
+	{
+		bool flag = false;
+		if (i == inputString.length() - 1)
+		{
+			//We are at last character of string
+
+			//If its a leaf node, then check if it has any more children. If not then return true else false
+			if (currentNode->isLeaf)
+			{
+				currentNode->isLeaf = false;
+				for (int k = 0; k < ALPHABET_SIZE; k++)
+				{
+					if (currentNode->children[k] != NULL)
+						return false;
+
+				}
+				return true;
+			}
+			else //If it's not a leaf node then return false
+				return false;
+			
+		}
+
+		if (currentNode->children[inputString[i+1] - 'a'] == NULL)
+			return false;
+		else
+		{	
+			flag = deleteWordRecurse(i + 1, inputString, currentNode->children[inputString[i+1] - 'a']);
+			
+			if (flag)
+			{
+				delete currentNode->children[inputString[i] - 'a'];
+				currentNode->children[inputString[i] - 'a'] = NULL;
+				if (currentNode->isLeaf)
+					return false;
+				else
+					return true;
+			}
+			else
+				return false;
+		}
+			
+	}
 
 public:
 
@@ -68,6 +112,21 @@ public:
 		return false;
 	}
 
+	bool deleteWord(string inputString)
+	{
+		//Check if inputString is actually present
+		if (!search(inputString))
+			return false;
+
+		//Frist transform the string to lowercase
+		transform(inputString.begin(), inputString.end(), inputString.begin(), ::tolower);
+
+		int i = 0;
+		if (this->children[inputString[i] - 'a'] != NULL)
+			return deleteWordRecurse(i, inputString, this->children[inputString[i] - 'a']);
+		else
+			return false;
+	}
 };
 
 int main()
@@ -78,7 +137,7 @@ int main()
 
 	while (true)
 	{
-		cout << endl<<"1)Insert\n2)Search\n3)Exit\nEnter Choice (1,2 or 3): ";
+		cout << endl<<"1)Insert\n2)Search\n3)Delete\n4)Exit\nEnter Choice (1,2 or 3): ";
 		cin >> choice;
 		
 		switch (choice)
@@ -98,6 +157,12 @@ int main()
 			cout << endl<<"trie.search(\"" << word << "\") = " << trie.search(word)<<endl;
 			break;
 		case 3:
+			cout << "Enter word you want to delete (Note: It should only contain alphabets): ";
+			getchar();
+			getline(cin, word);
+			cout << endl << "trie.deleteWord(\"" << word << "\") = " << trie.deleteWord(word) << endl;
+			break;
+		case 4:
 			exitFlag = 1;
 			break;
 		default:
