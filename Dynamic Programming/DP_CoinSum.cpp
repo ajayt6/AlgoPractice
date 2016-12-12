@@ -4,9 +4,7 @@
 using namespace std;
 
 
-/*	Find the longest increasing subsequence from the given array
-L(i) = 1+ Max(L(j))
-*/
+
 int CoinArr[3] = { 3,1,5 };//,7,2,8,6,9 };
 int* Min = NULL;
 vector<vector<int>> componentVector;// = new vector<int>();
