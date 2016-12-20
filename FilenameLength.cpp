@@ -7,24 +7,26 @@ https://leetcode.com/problems/longest-absolute-file-path/
 using namespace std;
 
 string input = "dir\n    file.txt";
+//string input = "dir\n    file.txt";
 //string input = "a.txt";
 //string input = "dir\n\tsubdir1";
 //string input = "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext\n\t\t\tsubsubsubdir2";//"dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext";// "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext";
 //string input = "dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext";
 int lengthLongestPath(string input) {
 
-	int totLength = 0,subLength = 0,numTabs=0,pos=0,fileFlag=0,longest = 0,tabFlag=1,nonCount = 0;
+	int totLength = 0,subLength = 0,numTabs=0,pos=0,fileFlag=0,longest = 0,tabFlag=1,nonCount = 0,tabSplFlag=0;
 	stack<pair<int,int>> folderStack;
 	int i = 0;
 	for (i = 0; i < input.length(); i++)
 	{
 		
 		//totLength = 0;
-		if (tabFlag == 1)
+		if (tabFlag == 1 && input[i] != ' ')
 		{
 			pos = i;
 			tabFlag = 0;
 		}
+
 		if (input[i] == ' ')
 			nonCount++;
 
@@ -33,7 +35,7 @@ int lengthLongestPath(string input) {
 		
 		if (input[i] == '\n'  )
 		{
-			subLength = i - pos -nonCount;
+			subLength = i - pos;// -nonCount;
 			nonCount = 0;
 			pos = 0;
 			/*if (folderStack.size() > 0)
@@ -64,19 +66,25 @@ int lengthLongestPath(string input) {
 				i++;
 				numTabs++;
 			}
+			if (tabFlag != 1)
+			{
+				tabSplFlag = 1;
+				tabFlag = 1;
+			}
 			i--;
-			while (folderStack.size()>0 && folderStack.top().second >= numTabs)
+			while (folderStack.size()>0 && folderStack.top().second >= numTabs && tabSplFlag != 1)
 			{
 				totLength = totLength - folderStack.top().first -1;
 				folderStack.pop();
 			}
+			tabSplFlag = 0;
 
 		}
 
 	}
 	if (fileFlag == 1)
 	{
-		subLength = i - pos - nonCount;
+		subLength = i - pos;// -nonCount;
 		nonCount = 0;
 		/*
 		if (folderStack.size() > 0)
@@ -85,11 +93,17 @@ int lengthLongestPath(string input) {
 			totLength = totLength + subLength;
 		
 		fileFlag = 0;
-		while (folderStack.size()>0 && folderStack.top().second >= numTabs)
+		if (tabFlag != 1)
+		{
+			tabSplFlag = 1;
+			tabFlag = 1;
+		}
+		while (folderStack.size()>0 && folderStack.top().second >= numTabs && tabSplFlag != 1)
 		{
 			totLength = totLength - folderStack.top().first -1;
 			folderStack.pop();
 		}
+		tabSplFlag = 0;
 		if (longest < totLength)
 			longest = totLength;
 	}
