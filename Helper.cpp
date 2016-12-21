@@ -25,6 +25,9 @@ int main()
 {
 	//vectorHelper[0] = 1;
 	//vectorHelper[1] = 3;
+	int h = 12;
+	cout << (h << 6);
+
 	vectorHelper.push_back(1);
 	vectorHelper.push_back(4);
 	vectorHelper[0] = 5;

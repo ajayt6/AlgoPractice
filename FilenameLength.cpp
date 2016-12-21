@@ -6,8 +6,8 @@ https://leetcode.com/problems/longest-absolute-file-path/
 #include<string>
 using namespace std;
 
-string input = "dir\n    file.txt";
 //string input = "dir\n    file.txt";
+string input = "dir\n    file.txt";
 //string input = "a.txt";
 //string input = "dir\n\tsubdir1";
 //string input = "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext\n\t\t\tsubsubsubdir2";//"dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext";// "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext";
