@@ -1,0 +1,8 @@
+http://www.geeksforgeeks.org/chocolate-distribution-problem/
+
+1) Sort the array
+2) Take difference between consecutive elements. Maintian a duplicate of the original array before this so that position can be used to find the actual elements -> no. of chocolates in packets
+3) Use a sliding window of size m (no. of children), and find the min sum. Store the starting element of this min sum. Take m elements from this starting element to get answer
+
+OR even better (from official answer)
+After sorting, just find difference between first and last elements of the sliding window. This has to be min
