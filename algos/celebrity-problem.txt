@@ -1,0 +1,9 @@
+httpwww.geeksforgeeks.orgthe-celebrity-problem
+
+1) Start from beginning. Check for A if he knwos from B to Z. 
+2) Whoever is known is added to a set
+3) For B onwards check only the people already in the set. If unknown remove from the set.
+This can be firther shortened because "If A knows B, then A must not be the celebrity."
+
+OR if graph then:
+1) Make adjacency matrix. Find the column with just one 0. This will have complexity of making adjacency matrix

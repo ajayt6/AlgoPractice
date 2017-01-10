@@ -1,0 +1,4 @@
+https://leetcode.com/problems/russian-doll-envelopes/
+
+1) In a 0 matrix put 1s for cells that match width and length of the envelopes.
+2) Then do DP of collceting max 1s provided that u can only move diagonally to catch a 1, otherwise down a cell or one right a cell
