@@ -68,7 +68,7 @@ public:
 			return -1;
 		temp = lruMap[key];
 
-		if (count > 1)
+		if (temp!=tail)
 		{
 			//Remove this node from current postion and put it at the end which is most crecently used place
 			if (temp->prev != NULL)
@@ -92,6 +92,36 @@ public:
 
 	void set(int key, int value) {
 		DoubleNode *temp = NULL;
+
+		if (lruMap.find(key) != lruMap.end())
+		{
+			
+
+			temp = lruMap[key];
+
+			if (temp == tail)
+			{
+				temp->value = value;
+			}
+			else
+			{
+				//Remove this node from current postion and put it at the end which is most crecently used place
+				if (temp->prev != NULL)
+					temp->prev->next = temp->next;
+				if (temp->next != NULL)
+					temp->next->prev = temp->prev;
+
+				//Now put at end
+				tail->next = temp;
+				tail->next->prev = tail;
+				tail->next->next = NULL;
+				tail = tail->next;
+
+				//Now change value of key in node
+				temp->value = value;
+			}
+			return;
+		}
 
 		if (count == capacity)
 		{
@@ -133,6 +163,7 @@ public:
 		else
 		{
 			//Check if already in map
+			/*
 			if (lruMap.find(key) != lruMap.end())
 			{
 				temp = lruMap[key];
@@ -152,7 +183,8 @@ public:
 				//Now change value of key in node
 				temp->value = value;
 			}
-			else
+			*/
+			//else
 			{
 				tail->next = new DoubleNode(key, value);
 				tail->next->prev = tail;
